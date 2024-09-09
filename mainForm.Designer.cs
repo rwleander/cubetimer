@@ -62,6 +62,7 @@ namespace cubeTimer
             this.lvData.MultiSelect = false;
             this.lvData.Name = "lvData";
             this.lvData.Size = new System.Drawing.Size(730, 250);
+            this.lvData.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvData.TabIndex = 2;
             this.lvData.UseCompatibleStateImageBehavior = false;
             this.lvData.View = System.Windows.Forms.View.Details;
