@@ -13,21 +13,21 @@ namespace cubeTimer
     {
         public mainForm()
         {
-                        InitializeComponent();
+            InitializeComponent();
         }
 
         //  variables
 
         String fileName = "scores.txt";
-        DateTime startTime, endTime; 
+        DateTime startTime, endTime;
         bool isRunning = false;
 
 
         //  on load, set up list view
 
-                private void mainForm_Load(object sender, EventArgs e)
+        private void mainForm_Load(object sender, EventArgs e)
         {
-            lvData.Columns.Clear();            
+            lvData.Columns.Clear();
             lvData.Columns.Add("time", 150, HorizontalAlignment.Center);
             lvData.Columns.Add("Date", 400, HorizontalAlignment.Left);
             LoadScores();
@@ -41,7 +41,7 @@ namespace cubeTimer
             if (isRunning == true)
             {
                 endTime = DateTime.Now;
-                TimeSpan diff = endTime- startTime;
+                TimeSpan diff = endTime - startTime;
                 int mm = diff.Minutes;
                 int ss = diff.Seconds;
                 isRunning = false;
@@ -59,7 +59,7 @@ namespace cubeTimer
                 btnStart.Text = "Stop Timer";
                 btnClose.Text = "Cancel";
                 isRunning = true;
-            }                                
+            }
         }
 
 
@@ -75,9 +75,9 @@ namespace cubeTimer
                 btnClose.Text = "Close";
             }
             else
-            { 
-            Close();
-        }
+            {
+                Close();
+            }
         }
 
         //------------------
@@ -98,7 +98,7 @@ namespace cubeTimer
 
             try
             {
-                rdr = File.OpenText (fileName);
+                rdr = File.OpenText(fileName);
             }
             catch (Exception ex)
             {
@@ -114,8 +114,8 @@ namespace cubeTimer
                 i = buff.IndexOf(" ");
                 if (i > 0)
                 {
-                    timeString = buff.Substring(0, i);
-                    dateString = buff.Substring(i, buff.Length - i);
+                    timeString = buff.Substring(0, i).Trim(); ;
+                    dateString = buff.Substring(i, buff.Length - i).Trim();
                 }
                 else
                 {
@@ -131,15 +131,15 @@ namespace cubeTimer
             }
 
             rdr.Close();
-            }
+        }
 
-               //  add time to list
+        //  add time to list
 
         private void PostTime(int mm, int ss)
         {
             ListViewItem lvItem;
             String timeString = mm.ToString() + ":" + ss.ToString();
-            String dateString = DateTime.Now.ToShortDateString();
+            String dateString = DateTime.Now.ToString();
             lvItem = new ListViewItem(timeString);
             lvItem.SubItems.Add(dateString);
             lvItem.Tag = timeString + " " + dateString;
@@ -150,7 +150,7 @@ namespace cubeTimer
 
         //  save scores
 
-       private void SaveScores()
+        private void SaveScores()
         {
             TextWriter wrtr;
             ListViewItem lvItem;
@@ -167,7 +167,7 @@ namespace cubeTimer
             }
 
             while ((i < lvData.Items.Count) && (i < 10))
-                    {
+            {
                 lvItem = lvData.Items[i];
                 wrtr.WriteLine(lvItem.Tag);
                 i++;
@@ -176,6 +176,6 @@ namespace cubeTimer
             wrtr.Close();
         }
 
-}
     }
+}
 
