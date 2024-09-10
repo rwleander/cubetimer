@@ -45,9 +45,10 @@ namespace cubeTimer
                 int mm = diff.Minutes;
                 int ss = diff.Seconds;
                 isRunning = false;
-                String msg = "Your time is " + mm.ToString() + ":" + ss.ToString() + "\n\nDo you want to save your time?";
+                String msg = "Your time is " + formatTime(mm, ss) + "\n\nDo you want to save your time?";
                 if (MessageBox.Show(msg, "Cube Timer", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+
                     PostTime(mm, ss);
                 }
                 btnStart.Text = "Start Timer";
@@ -138,7 +139,7 @@ namespace cubeTimer
         private void PostTime(int mm, int ss)
         {
             ListViewItem lvItem;
-            String timeString = mm.ToString() + ":" + ss.ToString();
+            String timeString = formatTime(mm, ss);
             String dateString = DateTime.Now.ToString();
             lvItem = new ListViewItem(timeString);
             lvItem.SubItems.Add(dateString);
@@ -174,6 +175,22 @@ namespace cubeTimer
             }
 
             wrtr.Close();
+        }
+
+        //  format time in m:ss
+
+        String formatTime(int mm, int ss)
+        {
+            String timeString = mm.ToString() + ":";
+            if (ss > 9)
+            {
+                timeString = timeString + ss.ToString();
+            }
+            else
+            {
+                timeString = timeString + "0" + ss.ToString();
+            }
+            return timeString;
         }
 
     }
